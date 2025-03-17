@@ -6,6 +6,7 @@
     <title>فاتورة ضريبية - شركة نقل أثاث</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
@@ -45,6 +46,7 @@
         .header {
             text-align: center;
             margin-bottom: 20px;
+            position: relative;
         }
         
         h1 {
@@ -106,54 +108,64 @@
             margin: 15px 0;
         }
         
+        button {
+            padding: 6px 12px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+        
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
         @media print {
             body {
                 padding: 0;
                 background-color: #fff;
             }
+            
             .invoice-container {
                 box-shadow: none;
                 padding: 10px;
                 border: none;
             }
+            
             .action-buttons {
-                display: none; /* إخفاء الأزرار أثناء الطباعة */
-            }
-            input, textarea {
-                border: none;
-                padding: 0;
-            }
-            .section {
-                border: none;
-            }
-            th, td {
-                padding: 5px 3px;
+                display: none !important;
             }
         }
     </style>
 </head>
 <body>
     <div class="invoice-container">
-        <!-- Corner Icons -->
-        <i class="fas fa-truck-moving corner-icon top-right"></i>
-        <i class="fas fa-couch corner-icon top-left"></i>
-        <i class="fas fa-box-open corner-icon bottom-right"></i>
-        <i class="fas fa-boxes corner-icon bottom-left"></i>
-        
         <!-- Header -->
         <div class="header">
-            <h1>ﻣﺆﺳﺴﺔ ﺷﻴﺨﻪ ﻋﺒﺪﺍﻟﻠﻠﻠﻪ ﺍﻟﻨﺘﻴﻔﺎﺕ ﻟﻠﻨﻘﻠﻴﺎﺕ</h1>
-            <p>خدمات نقل احترافية - سرعة ودقة في التنفيذ</p>
-        </div>
-        
-        <div class="invoice-title">
-            <div>
-                <h2>فاتورة ضريبية</h2>
-                <p>--------------------------------</p>
-            </div>
-            <div class="invoice-number">
-                <p>رقم الفاتورة: <input type="text" id="invoiceNumber" value="INV-2025-0001"></p>
-                <p>تاريخ الإصدار: <input type="date" id="invoiceDate" value="2025-03-14"></p>
+            <h1>ﻣﺆﺳﺴﺔ ﺷﻴﺦ ﻋﺒﺪﺍﻟﻠﻠﻠﻪ ﺍﻟﻨﺘﻴﻔﺎﺕ ﻟﻠﻨﻘﻠﻴﺎﺕ</h1>
+            <h2>فاتورة ضريبية</h2>
+            <div class="invoice-title">
+                <div>
+                    <p>--------------------------------</p>
+                </div>
+                <div class="invoice-number">
+                    <p>رقم الفاتورة: <input type="text" id="invoiceNumber" value="INV-2025-0001"></p>
+                    <p>تاريخ الإصدار: <input type="date" id="invoiceDate" value="2025-03-14"></p>
+                </div>
             </div>
         </div>
         
@@ -256,6 +268,7 @@
         <div class="action-buttons">
             <button class="btn-primary" onclick="printInvoice()">طباعة الفاتورة</button>
             <button class="btn-secondary" onclick="exportToExcel()">تصدير إلى Excel</button>
+            <button class="btn-danger" onclick="downloadPDF()">تحميل PDF</button>
         </div>
         
         <div class="tax-info">
@@ -315,6 +328,18 @@
             const table = document.getElementById('invoiceTable');
             const wb = XLSX.utils.table_to_book(table, { sheet: "فاتورة" });
             XLSX.writeFile(wb, "فاتورة.xlsx");
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+            doc.html(document.querySelector(".invoice-container"), {
+                callback: function (doc) {
+                    doc.save('فاتورة.pdf');
+                },
+                x: 10,
+                y: 10
+            });
         }
     </script>
 </body>
