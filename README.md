@@ -232,51 +232,6 @@
             font-size: 10px;
             color: #6c757d;
         }
-
-        @media print {
-            body {
-                padding: 0;
-                background-color: #fff;
-            }
-            
-            .invoice-container {
-                box-shadow: none;
-                padding: 10px;
-                border: none;
-            }
-            
-            .action-buttons, .btn-add-row, .btn-remove-row, .hidden-print {
-                display: none !important;
-            }
-            
-            input, textarea {
-                border: none;
-                padding: 0;
-                font-size: 12px;
-            }
-            
-            .section {
-                border: none;
-                padding: 5px 0;
-                background-color: transparent;
-            }
-            
-            .header {
-                margin-bottom: 10px;
-            }
-            
-            .flex-container {
-                margin-bottom: 10px;
-            }
-            
-            table {
-                margin-bottom: 10px;
-            }
-            
-            th, td {
-                padding: 5px 3px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -455,7 +410,73 @@
         }
 
         function printInvoice() {
-            window.print();
+            const invoiceContent = document.querySelector('.invoice-container').innerHTML;
+            const printWindow = window.open('', '', 'width=800,height=600');
+            printWindow.document.write(`
+                <html dir="rtl" lang="ar">
+                <head>
+                    <title>طباعة الفاتورة</title>
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+                        * {
+                            font-family: 'Tajawal', sans-serif;
+                            box-sizing: border-box;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        body {
+                            padding: 20px;
+                            background-color: #fff;
+                            color: #333;
+                        }
+                        .invoice-container {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            background-color: #fff;
+                            padding: 20px;
+                            border-radius: 10px;
+                            box-shadow: none;
+                            border: none;
+                        }
+                        input, textarea {
+                            border: none;
+                            padding: 0;
+                            font-size: 12px;
+                        }
+                        .section {
+                            border: none;
+                            padding: 5px 0;
+                            background-color: transparent;
+                        }
+                        .header {
+                            margin-bottom: 10px;
+                        }
+                        .flex-container {
+                            margin-bottom: 10px;
+                        }
+                        table {
+                            margin-bottom: 10px;
+                        }
+                        th, td {
+                            padding: 5px 3px;
+                        }
+                        .action-buttons, .btn-add-row, .btn-remove-row, .hidden-print {
+                            display: none !important;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${invoiceContent}
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            window.close();
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
         }
 
         function exportToExcel() {
