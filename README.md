@@ -30,6 +30,12 @@
         button:hover {
             background-color: #218838;
         }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -47,6 +53,8 @@
         <button type="submit">إرسال</button>
     </form>
 
+    <div id="response"></div>
+
     <script>
         document.getElementById('dataForm').onsubmit = function(event) {
             event.preventDefault();
@@ -57,7 +65,7 @@
                 data[key] = value;
             });
 
-            fetch('https://script.google.com/macros/s/AKfycbxT_DAIT3f34PgSj6C7g0nUJ5urP5X2ng0yCiPgzBFV1vbcyYHgW26620o7lBPTCRts/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbxHa9QPFbNLeXO-2LYk-KcPYysTDJoL7CH8caCBNd53HV4eM8ueOWv620zOlEjnnP-c/exec', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -66,14 +74,24 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('تم إرسال البيانات بنجاح!');
+                document.getElementById('response').innerText = 'تم إرسال البيانات بنجاح!';
                 this.reset();
             })
             .catch(error => {
                 console.error('خطأ:', error);
-                alert('حدث خطأ أثناء إرسال البيانات: ' + error.message);
+                document.getElementById('response').innerText = 'حدث خطأ أثناء إرسال البيانات: ' + error.message;
             });
         };
+
+        // إرسال طلب GET عند تحميل الصفحة
+        fetch('https://script.google.com/macros/s/AKfycbxHa9QPFbNLeXO-2LYk-KcPYysTDJoL7CH8caCBNd53HV4eM8ueOWv620zOlEjnnP-c/exec')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').innerText += '\n' + data; // إضافة استجابة GET
+            })
+            .catch(error => {
+                console.error('خطأ في طلب GET:', error);
+            });
     </script>
 </body>
 </html>
