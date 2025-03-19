@@ -57,7 +57,7 @@
                 data[key] = value;
             });
 
-            fetch('https://script.google.com/macros/s/AKfycbzpCKuml2Fn1-8jJYVcEcEnO1gwvXJ8EqUd56uTfEmXEWmBdWX9Egv93b1AVdt8cTI0/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbxT_DAIT3f34PgSj6C7g0nUJ5urP5X2ng0yCiPgzBFV1vbcyYHgW26620o7lBPTCRts/exec', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
