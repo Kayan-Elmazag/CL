@@ -57,7 +57,7 @@
                 data[key] = value;
             });
 
-            fetch('https://script.google.com/macros/s/AKfycbxXAi-u5T8XWNIrTJIUBmb0JCbIAutpiTGLYr2vPUqAceTryqMXwzRmRYwIw5hpVNa_/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzpCKuml2Fn1-8jJYVcEcEnO1gwvXJ8EqUd56uTfEmXEWmBdWX9Egv93b1AVdt8cTI0/exec', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -71,7 +71,7 @@
             })
             .catch(error => {
                 console.error('خطأ:', error);
-                alert('حدث خطأ أثناء إرسال البيانات.');
+                alert('حدث خطأ أثناء إرسال البيانات: ' + error.message);
             });
         };
     </script>
