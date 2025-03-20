@@ -416,6 +416,37 @@
                     img.src = e.target.result;
                     img.style.display = 'block';
                 };
+
+                // إضافة هذه الدالة في نهاية كود JavaScript الخاص بك
+function adjustImagePosition() {
+    const imageContainer = document.querySelector('.image-container');
+    const footer = document.querySelector('.footer');
+    
+    // تأكد من أن الصورة معروضة
+    if (document.getElementById('background').style.display !== 'none') {
+        // ضبط المسافة بين الصورة والفوتر
+        imageContainer.style.marginBottom = '20px';
+        footer.style.marginTop = '0';
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة وعند إضافة صورة
+document.addEventListener('DOMContentLoaded', adjustImagePosition);
+
+// تعديل دالة إضافة الصورة الخلفية
+function setBackgroundImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.getElementById('background');
+            img.src = e.target.result;
+            img.style.display = 'block';
+            adjustImagePosition(); // ضبط موضع الصورة بعد إضافتها
+        };
+        reader.readAsDataURL(file);
+    }
+}
                 reader.readAsDataURL(file);
             }
         }
