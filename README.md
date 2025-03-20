@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -25,14 +26,14 @@
         }
         .header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.1rem;
             border-bottom: 2px solid #1d4ed8;
             padding-bottom: 0.5rem;
         }
         .header h1 {
             color: #1d4ed8;
-            margin: -2;
-            font-size: 1.5rem;
+            margin: 0;
+            font-size:1.5rem;
         }
         .controls {
             display: flex;
@@ -72,15 +73,16 @@
         }
         .info-box {
             flex: 1;
-            padding: .5rem;
+            padding: .3rem;
             border: 1px solid #e0e0e0;
             border-radius: 2px;
-            margin: 0 0.5rem;
+            margin: 0 0.3rem;
             background-color: #fafafa;
         }
         .info-box h2 {
+font-size: 0.9rem; /* كان أكبر */
             color: #1d4ed8;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
         .info-field {
             margin-bottom: 0.5rem;
