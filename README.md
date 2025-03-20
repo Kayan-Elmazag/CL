@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض سعر</title>
+    <title>نموذج عرض سعر فخم</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/1.3.0/lucide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ar.js"></script>
@@ -92,7 +92,7 @@
             border-radius: 5px;
         }
         .table-container {
-            margin-bottom: 1rem;
+            margin-bottom: 1rem; /* تقليل المسافة بين الجدول وقسم المجموع */
             border: 1px solid #d1d5db;
             border-radius: 5px;
             padding: 1rem;
@@ -106,125 +106,100 @@
             border: 1px solid #d1d5db;
             padding: 0.5rem;
             text-align: center;
-            height: 40px;
+            height: 40px; /* تقليل ارتفاع الأعمدة */
         }
         th {
             background-color: #e0f2fe;
             color: #1d4ed8;
         }
         td:first-child {
-            width: 40%;
+            width: 40%; /* زيادة عرض عمود الوصف */
         }
         td:nth-child(2),
         td:nth-child(3),
         td:nth-child(4) {
-            width: 15%;
+            width: 15%; /* تقليل عرض الأعمدة الأخرى */
         }
         .footer {
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 1rem; /* تقليل المسافة بين الفوتر والصورة */
             color: #666;
             font-size: 0.875rem;
-            padding: 0;
+            padding: 0; /* إزالة padding */
         }
         .totals {
             display: flex;
             justify-content: space-between;
-            margin-top: 0;
+            margin-top: 0; /* إزالة المسافة العلوية */
             font-weight: bold;
         }
         #backgroundImage {
-            display: inline-block;
-            margin-right: 1rem;
+            display: inline-block; /* Show the button */
+            margin-right: 1rem; /* Add spacing */
         }
         .image-container {
-            text-align: center;
-            margin-top: 0;
+            text-align: center; /* Center the image */
+            margin-top: 0; /* إزالة المسافة بين المجموع والصورة */
         }
         .image-container img {
-            max-width: 100%;
-            height: auto;
+            max-width: 100%; /* Ensure the image is responsive */
+            height: auto; /* Maintain aspect ratio */
         }
-        
-        /* تحسينات الطباعة */
         @media print {
-            /* إخفاء عناصر التحكم والأزرار */
+            /* إخفاء عناصر الصفحة عند الطباعة */
             .controls {
                 display: none !important;
             }
             
-            /* إخفاء أزرار الإجراءات والعمود الخاص بها */
-            th:nth-child(5),
+            /* إخفاء عمود الإجراء */
+            th:nth-child(5), 
             td:nth-child(5) {
                 display: none;
             }
             
-            /* تغيير حجم الورقة للمحتوى */
+            /* إخفاء هيدر وفوتر الموقع عند الطباعة */
+            @page {
+                margin: 0;
+                size: auto;
+            }
+            
+            /* إخفاء اسم الصفحة "CL" من الطباعة */
+            html, body {
+                height: 100%;
+                overflow: hidden;
+            }
+            
             body {
-                background-color: white;
-                margin: 0;
-                padding: 0;
+                margin: 0 !important;
+                padding: 0 !important;
+                background-color: white !important;
             }
             
-            /* إزالة القياسات والظلال عند الطباعة */
+            /* عرض المحتوى الرئيسي فقط */
+            body > *:not(.container) {
+                display: none !important;
+            }
+            
             .container {
-                box-shadow: none;
-                border-radius: 0;
-                max-width: 100%;
-                width: 100%;
-                margin: 0;
-                padding: 0.5cm;
+                box-shadow: none !important;
+                margin: 0 auto !important;
+                padding: 10px !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             
-            /* تثبيت الفوتر في الأسفل */
+            /* ضبط الفوتر */
             .footer {
                 position: fixed;
-                bottom: 0.5cm;
+                bottom: 0;
                 width: 100%;
                 left: 0;
                 right: 0;
-                text-align: center;
             }
             
-            /* إخفاء هيدر وفوتر الموقع (الخارجيين) */
-            @page {
-                margin: 0.5cm;
-                size: A4;
-            }
-            
-            /* تغيير عنوان الصفحة ليكون "عرض السعر" فقط */
-            title {
-                display: none;
-            }
-            
-            /* التأكد من عدم قطع العناصر عند الطباعة */
-            .info-container, 
-            .table-container, 
-            .totals {
-                break-inside: avoid;
-            }
-            
-            /* إزالة الحقول من الجدول عند الطباعة */
-            input {
-                border: none;
-                padding: 0;
-                background: transparent;
-            }
-            
-            /* إخفاء أزرار إضافة العناصر */
+            /* إخفاء أي عناصر إضافية */
             #addItemBtn {
-                display: none;
-            }
-
-            /* إخفاء العناصر الخارجية المتعلقة بالموقع */
-            header, 
-            nav, 
-            footer, 
-            aside,
-            .site-header, 
-            .site-footer, 
-            .navigation, 
-            .sidebar {
                 display: none !important;
             }
         }
@@ -299,7 +274,7 @@
         </div>
 
         <div class="image-container">
-            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;">
+            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;"> <!-- الصورة هنا -->
         </div>
         
         <div class="footer">
@@ -310,11 +285,11 @@
     <script>
         // Initialize current date
         document.addEventListener('DOMContentLoaded', function() {
-            const today = moment().locale('ar').format('YYYY-MM-DD');
-            document.getElementById('offerDate').value = today;
+            const today = moment().locale('ar').format('YYYY-DD-MMM');
+            document.getElementById('offerDate').value = today; // تعيين التاريخ الحالي
             renderItems();
             
-            // إضافة عنصر افتراضي عند تحميل الصفحة
+            // إضافة عنصر افتراضي
             if (items.length === 0) {
                 addItem();
             }
@@ -354,7 +329,7 @@
 
         // Add item function
         function addItem() {
-            const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+            const newId = Date.now(); // استخدام الوقت الحالي كمعرف فريد
             items.push({ id: newId, description: '', quantity: 1, price: 0 });
             renderItems();
         }
@@ -385,34 +360,7 @@
 
         // Print function
         document.getElementById('printBtn').addEventListener('click', function() {
-            // تعديل عنوان الصفحة قبل الطباعة
-            document.title = "عرض سعر";
-            
-            // إعادة تنسيق المدخلات للطباعة
-            const inputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
-            inputs.forEach(input => {
-                input.style.border = 'none';
-                input.style.backgroundColor = 'transparent';
-            });
-            
-            // إخفاء أزرار الإجراءات
-            const actionButtons = document.querySelectorAll('td:nth-child(5)');
-            actionButtons.forEach(td => {
-                td.style.display = 'none';
-            });
-            
             window.print();
-            
-            // إعادة التنسيق بعد الطباعة
-            inputs.forEach(input => {
-                input.style.border = '1px solid #d1d5db';
-                input.style.backgroundColor = '';
-            });
-            
-            // إعادة إظهار أزرار الإجراءات
-            actionButtons.forEach(td => {
-                td.style.display = '';
-            });
         });
 
         // Set background image function
@@ -423,7 +371,7 @@
                 reader.onload = function(e) {
                     const img = document.getElementById('background');
                     img.src = e.target.result;
-                    img.style.display = 'block';
+                    img.style.display = 'block'; // عرض الصورة
                 };
                 reader.readAsDataURL(file);
             }
