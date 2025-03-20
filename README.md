@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -72,9 +73,9 @@
         }
         .info-box {
             flex: 1;
-            padding: 1rem;
+            padding: .5rem;
             border: 1px solid #e0e0e0;
-            border-radius: 5px;
+            border-radius: 2px;
             margin: 0 0.5rem;
             background-color: #fafafa;
         }
@@ -255,7 +256,9 @@
         </div>
         
         <div class="footer">
-            <p>شكرًا لاختياركم خدمتنا في نقل وتخزين الأثاث. نحن ملتزمون بتقديم أفضل الخدمات. لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبًا</p>
+            <p>شكرًا لاختياركم خدمتنا في نقل وتخزين الأثاث. نحن ملتزمون بتقديم أفضل الخدمات. </p>
+
+لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبًا</p>
         </div>
     </div>
 
