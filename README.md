@@ -137,46 +137,55 @@
             display: inline-block;
             margin-right: 1rem;
         }
-/* التعديلات على حاوية الصورة */
-.image-container {
-    text-align: center;
-    margin-top: 0; /* إزالة المسافة العلوية */
-    margin-bottom: 20px; /* إضافة مسافة بين الصورة والفوتر */
-    position: relative; /* جعل الموضع نسبي للتحكم به */
-}
-
-/* تنسيق الفوتر */
-.footer {
-    text-align: center;
-    margin-top: 0; /* إزالة المسافة بين الفوتر والصورة */
-    color: #666;
-    font-size: 0.875rem;
-    padding: 0;
-    position: relative; /* جعل الموضع نسبي للتحكم به */
-}
-
-/* تنسيق المجموع */
-.totals {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0;
-    margin-bottom: 20px; /* إضافة مسافة بين المجموع والصورة */
-    font-weight: bold;
-}
-
-/* تنسيقات الطباعة للتحكم بموضع الصورة */
-@media print {
-    .image-container {
-        margin-bottom: 30px; /* زيادة المسافة بين الصورة والفوتر عند الطباعة */
-        page-break-after: avoid; /* تجنب فصل الصورة عن الفوتر عند الطباعة */
-    }
-    
-    .footer {
-        position: relative; /* تغيير من fixed لنسبي بعد الصورة */
-        bottom: 0;
-        width: 100%;
-    }
-}            
+        .image-container {
+            text-align: center;
+            margin-top: 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* تحسينات الطباعة */
+        @media print {
+            /* إخفاء عناصر التحكم والأزرار */
+            .controls {
+                display: none !important;
+            }
+            
+            /* إخفاء أزرار الإجراءات والعمود الخاص بها */
+            th:nth-child(5),
+            td:nth-child(5) {
+                display: none;
+            }
+            
+            /* تغيير حجم الورقة للمحتوى */
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* إزالة القياسات والظلال عند الطباعة */
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0.5cm;
+            }
+            
+            /* تثبيت الفوتر في الأسفل */
+            .footer {
+                position: fixed;
+                bottom: 0.5cm;
+                width: 100%;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+            
             /* إخفاء هيدر وفوتر الموقع (الخارجيين) */
             @page {
                 margin: 0.5cm;
