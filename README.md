@@ -176,9 +176,6 @@
                 display: none !important;
             }
     /* إخفاء الهيدر والفوتر */
-    .header, .footer {
-        display: none !important;
-    }
     
     /* طباعة الحاوية فقط */
     html, body {
