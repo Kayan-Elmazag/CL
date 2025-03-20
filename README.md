@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +33,7 @@
         .header h1 {
             color: #1d4ed8;
             margin: 0;
-            font-size:1.5rem;
+            font-size: 1.5rem;
         }
         .controls {
             display: flex;
@@ -60,11 +61,9 @@
             transition: background-color 0.3s;
         }
         .btn-purple { background-color: #9333ea; }
-
         .btn:hover {
             filter: brightness(90%);
         }
-
         .info-container {
             display: flex;
             justify-content: space-between;
@@ -79,7 +78,7 @@
             background-color: #fafafa;
         }
         .info-box h2 {
-font-size: 0.9rem; /* كان أكبر */
+            font-size: 0.9rem;
             color: #1d4ed8;
             margin-bottom: 0.3rem;
         }
@@ -149,14 +148,12 @@ font-size: 0.9rem; /* كان أكبر */
         
         /* تعديل جديد لتعليمات الطباعة */
         @media print {
-            /* طباعة الحاوية فقط */
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
                 visibility: hidden !important;
                 background-color: white !important;
             }
-            
             .container {
                 visibility: visible !important;
                 position: absolute !important;
@@ -169,17 +166,28 @@ font-size: 0.9rem; /* كان أكبر */
                 margin: 0 !important;
                 border-radius: 0 !important;
             }
-            
             /* إخفاء أزرار التحكم */
             .controls, #addItemBtn {
                 display: none !important;
             }
-            
             /* إخفاء عمود الإجراء */
             th:nth-child(5), 
             td:nth-child(5) {
                 display: none !important;
             }
+    /* إخفاء الهيدر والفوتر */
+    .header, .footer {
+        display: none !important;
+    }
+    
+    /* طباعة الحاوية فقط */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        visibility: hidden !important;
+        background-color: white !important;
+    }
+
         }
     </style>
 </head>
@@ -188,7 +196,7 @@ font-size: 0.9rem; /* كان أكبر */
         <div class="header">
             <h1>عرض سعر</h1>
             <div class="info-header">
-                <input type="text" id="offerNumber" placeholder="رقم العرض">
+                <input type="text" id="offerNumber" placeholder="رقم العرض" readonly>
                 <input type="date" id="offerDate">
             </div>
         </div>
@@ -200,7 +208,7 @@ font-size: 0.9rem; /* كان أكبر */
 
         <div class="info-container">
             <div class="info-box">
-                <h2>ﻣؤﺳﺳﺔ ﺷيخه ﻋﺑدﷲ اﻟﻧﺗﯾﻔﺎت ﻟﻠﻧﻘﻠﯾﺎت</h2>
+                <h2>ﻣؤﺳﺳﺔ ﺷيخه ﻋﺑدﷱ اﻟﻧﺗﯾﻔﺎت ﻟﻠﻧﻘﻠﯾﺎت</h2>
                 <div class="info-field">
                     <input type="text" id="companyName" placeholder="الرياض">
                 </div>
@@ -257,18 +265,21 @@ font-size: 0.9rem; /* كان أكبر */
         
         <div class="footer">
             <p>شكرًا لاختياركم خدمتنا في نقل وتخزين الأثاث. نحن ملتزمون بتقديم أفضل الخدمات. </p>
-
-لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبا
+            <p>لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبًا</p>
         </div>
     </div>
 
     <script>
-        // تهيئة التاريخ الحالي
+        // تهيئة التاريخ الحالي ورقم العرض
         document.addEventListener('DOMContentLoaded', function() {
             // تعيين التاريخ الحالي
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('offerDate').value = today;
-            
+
+            // توليد رقم العرض تلقائياً
+            const offerNumber = generateOfferNumber();
+            document.getElementById('offerNumber').value = offerNumber;
+
             // إضافة عنصر افتراضي عند التحميل
             if (items.length === 0) {
                 addItem();
@@ -276,6 +287,18 @@ font-size: 0.9rem; /* كان أكبر */
         });
 
         let items = [];
+
+        // دالة لتوليد رقم العرض
+        function generateOfferNumber() {
+            const now = new Date();
+            const datePart = now.getFullYear().toString().slice(-2) + 
+                             (now.getMonth() + 1).toString().padStart(2, '0') + 
+                             now.getDate().toString().padStart(2, '0');
+            const timePart = now.getHours().toString().padStart(2, '0') + 
+                             now.getMinutes().toString().padStart(2, '0') + 
+                             now.getSeconds().toString().padStart(2, '0');
+            return datePart + timePart;
+        }
 
         // عرض العناصر
         function renderItems() {
@@ -340,13 +363,11 @@ font-size: 0.9rem; /* كان أكبر */
 
         // دالة الطباعة باستخدام iframe
         document.getElementById('printBtn').addEventListener('click', function() {
-            // استخدام طريقة مختلفة للطباعة - مناسبة للموقع
             printDocument();
         });
 
         // دالة طباعة محسنة
         function printDocument() {
-            // إخفاء أزرار التحكم مؤقتًا
             const controls = document.querySelector('.controls');
             const addItemBtn = document.querySelector('#addItemBtn');
             const actionCells = document.querySelectorAll('th:nth-child(5), td:nth-child(5)');
@@ -357,10 +378,8 @@ font-size: 0.9rem; /* كان أكبر */
                 if (cell) cell.style.display = 'none';
             });
             
-            // طباعة الصفحة
             window.print();
             
-            // إعادة العناصر بعد الطباعة
             setTimeout(() => {
                 if (controls) controls.style.display = 'flex';
                 if (addItemBtn) addItemBtn.style.display = 'block';
