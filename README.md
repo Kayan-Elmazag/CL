@@ -198,7 +198,6 @@
         </div>
 
         <div class="controls">
-            <input type="file" id="backgroundImage" accept="image/*" onchange="setBackgroundImage(event)">
             <button id="printBtn" class="btn btn-purple">طباعة</button>
         </div>
 
@@ -256,7 +255,7 @@
         </div>
 
         <div class="image-container">
-            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;">
+            <img id="background" src="https://lh5.googleusercontent.com/OjIaqss_gBNtzS80G9JJria2Gxd-VK-2NarDNGY3XBhX5EPXHZWZQ_zkEz0h-fraYJrIsyCLzjA_JKuPCOil0kU" alt="صورة تحت المجموع">
         </div>
         
         <div class="footer">
@@ -383,20 +382,6 @@
                     if (cell) cell.style.display = '';
                 });
             }, 1000);
-        }
-
-        // تعيين صورة الخلفية
-        function setBackgroundImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById('background');
-                    img.src = e.target.result;
-                    img.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
         }
     </script>
 </body>
