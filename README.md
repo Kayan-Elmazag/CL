@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -92,7 +93,7 @@
             border-radius: 5px;
         }
         .table-container {
-            margin-bottom: 1rem; /* تقليل المسافة بين الجدول وقسم المجموع */
+            margin-bottom: 1rem;
             border: 1px solid #d1d5db;
             border-radius: 5px;
             padding: 1rem;
@@ -106,100 +107,77 @@
             border: 1px solid #d1d5db;
             padding: 0.5rem;
             text-align: center;
-            height: 40px; /* تقليل ارتفاع الأعمدة */
+            height: 40px;
         }
         th {
             background-color: #e0f2fe;
             color: #1d4ed8;
         }
         td:first-child {
-            width: 40%; /* زيادة عرض عمود الوصف */
+            width: 40%;
         }
         td:nth-child(2),
         td:nth-child(3),
         td:nth-child(4) {
-            width: 15%; /* تقليل عرض الأعمدة الأخرى */
+            width: 15%;
         }
         .footer {
             text-align: center;
-            margin-top: 1rem; /* تقليل المسافة بين الفوتر والصورة */
+            margin-top: 1rem;
             color: #666;
             font-size: 0.875rem;
-            padding: 0; /* إزالة padding */
+            padding: 0;
         }
         .totals {
             display: flex;
             justify-content: space-between;
-            margin-top: 0; /* إزالة المسافة العلوية */
+            margin-top: 0;
             font-weight: bold;
         }
         #backgroundImage {
-            display: inline-block; /* Show the button */
-            margin-right: 1rem; /* Add spacing */
+            display: inline-block;
+            margin-right: 1rem;
         }
         .image-container {
-            text-align: center; /* Center the image */
-            margin-top: 0; /* إزالة المسافة بين المجموع والصورة */
+            text-align: center;
+            margin-top: 0;
         }
         .image-container img {
-            max-width: 100%; /* Ensure the image is responsive */
-            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;
+            height: auto;
         }
+        
+        /* تعديل جديد لتعليمات الطباعة */
         @media print {
-            /* إخفاء عناصر الصفحة عند الطباعة */
-            .controls {
+            /* طباعة الحاوية فقط */
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                visibility: hidden !important;
+                background-color: white !important;
+            }
+            
+            .container {
+                visibility: visible !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+                box-shadow: none !important;
+                padding: 10px !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            
+            /* إخفاء أزرار التحكم */
+            .controls, #addItemBtn {
                 display: none !important;
             }
             
             /* إخفاء عمود الإجراء */
             th:nth-child(5), 
             td:nth-child(5) {
-                display: none;
-            }
-            
-            /* إخفاء هيدر وفوتر الموقع عند الطباعة */
-            @page {
-                margin: 0;
-                size: auto;
-            }
-            
-            /* إخفاء اسم الصفحة "CL" من الطباعة */
-            html, body {
-                height: 100%;
-                overflow: hidden;
-            }
-            
-            body {
-                margin: 0 !important;
-                padding: 0 !important;
-                background-color: white !important;
-            }
-            
-            /* عرض المحتوى الرئيسي فقط */
-            body > *:not(.container) {
-                display: none !important;
-            }
-            
-            .container {
-                box-shadow: none !important;
-                margin: 0 auto !important;
-                padding: 10px !important;
-                border-radius: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-            
-            /* ضبط الفوتر */
-            .footer {
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                left: 0;
-                right: 0;
-            }
-            
-            /* إخفاء أي عناصر إضافية */
-            #addItemBtn {
                 display: none !important;
             }
         }
@@ -211,7 +189,7 @@
             <h1>عرض سعر</h1>
             <div class="info-header">
                 <input type="text" id="offerNumber" placeholder="رقم العرض">
-                <input type="date" id="offerDate" value="2025-03-20">
+                <input type="date" id="offerDate">
             </div>
         </div>
 
@@ -274,7 +252,7 @@
         </div>
 
         <div class="image-container">
-            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;"> <!-- الصورة هنا -->
+            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;">
         </div>
         
         <div class="footer">
@@ -283,13 +261,13 @@
     </div>
 
     <script>
-        // Initialize current date
+        // تهيئة التاريخ الحالي
         document.addEventListener('DOMContentLoaded', function() {
-            const today = moment().locale('ar').format('YYYY-DD-MMM');
-            document.getElementById('offerDate').value = today; // تعيين التاريخ الحالي
-            renderItems();
+            // تعيين التاريخ الحالي
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('offerDate').value = today;
             
-            // إضافة عنصر افتراضي
+            // إضافة عنصر افتراضي عند التحميل
             if (items.length === 0) {
                 addItem();
             }
@@ -297,7 +275,7 @@
 
         let items = [];
 
-        // Render items function
+        // عرض العناصر
         function renderItems() {
             const tbody = document.getElementById('itemsTable');
             tbody.innerHTML = '';
@@ -316,7 +294,7 @@
             calculateTotals();
         }
 
-        // Calculate totals
+        // حساب المجاميع
         function calculateTotals() {
             let subtotal = items.reduce((sum, item) => sum + (item.quantity * item.price), 0);
             let tax = subtotal * 0.15;
@@ -327,19 +305,19 @@
             document.getElementById('total').textContent = `${total.toFixed(2)} ريال سعودي`;
         }
 
-        // Add item function
+        // إضافة عنصر
         function addItem() {
-            const newId = Date.now(); // استخدام الوقت الحالي كمعرف فريد
+            const newId = Date.now();
             items.push({ id: newId, description: '', quantity: 1, price: 0 });
             renderItems();
         }
 
-        // Add item button
+        // زر إضافة عنصر
         document.getElementById('addItemBtn').addEventListener('click', function() {
             addItem();
         });
 
-        // Update item function
+        // تحديث عنصر
         function updateItem(id, field, value) {
             const item = items.find(i => i.id === id);
             if (item) {
@@ -352,18 +330,45 @@
             }
         }
 
-        // Remove item function
+        // حذف عنصر
         function removeItem(id) {
             items = items.filter(item => item.id !== id);
             renderItems();
         }
 
-        // Print function
+        // دالة الطباعة باستخدام iframe
         document.getElementById('printBtn').addEventListener('click', function() {
-            window.print();
+            // استخدام طريقة مختلفة للطباعة - مناسبة للموقع
+            printDocument();
         });
 
-        // Set background image function
+        // دالة طباعة محسنة
+        function printDocument() {
+            // إخفاء أزرار التحكم مؤقتًا
+            const controls = document.querySelector('.controls');
+            const addItemBtn = document.querySelector('#addItemBtn');
+            const actionCells = document.querySelectorAll('th:nth-child(5), td:nth-child(5)');
+            
+            if (controls) controls.style.display = 'none';
+            if (addItemBtn) addItemBtn.style.display = 'none';
+            actionCells.forEach(cell => {
+                if (cell) cell.style.display = 'none';
+            });
+            
+            // طباعة الصفحة
+            window.print();
+            
+            // إعادة العناصر بعد الطباعة
+            setTimeout(() => {
+                if (controls) controls.style.display = 'flex';
+                if (addItemBtn) addItemBtn.style.display = 'block';
+                actionCells.forEach(cell => {
+                    if (cell) cell.style.display = '';
+                });
+            }, 1000);
+        }
+
+        // تعيين صورة الخلفية
         function setBackgroundImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -371,7 +376,7 @@
                 reader.onload = function(e) {
                     const img = document.getElementById('background');
                     img.src = e.target.result;
-                    img.style.display = 'block'; // عرض الصورة
+                    img.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             }
