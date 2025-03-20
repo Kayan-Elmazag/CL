@@ -31,7 +31,7 @@
         }
         .header h1 {
             color: #1d4ed8;
-            margin: 0;
+            margin: -2;
             font-size: 1.5rem;
         }
         .controls {
