@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج عرض سعر فخم</title>
+    <title>عرض سعر</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/1.3.0/lucide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ar.js"></script>
@@ -93,7 +92,7 @@
             border-radius: 5px;
         }
         .table-container {
-            margin-bottom: 1rem; /* تقليل المسافة بين الجدول وقسم المجموع */
+            margin-bottom: 1rem;
             border: 1px solid #d1d5db;
             border-radius: 5px;
             padding: 1rem;
@@ -107,57 +106,126 @@
             border: 1px solid #d1d5db;
             padding: 0.5rem;
             text-align: center;
-            height: 40px; /* تقليل ارتفاع الأعمدة */
+            height: 40px;
         }
         th {
             background-color: #e0f2fe;
             color: #1d4ed8;
         }
         td:first-child {
-            width: 40%; /* زيادة عرض عمود الوصف */
+            width: 40%;
         }
         td:nth-child(2),
         td:nth-child(3),
         td:nth-child(4) {
-            width: 15%; /* تقليل عرض الأعمدة الأخرى */
+            width: 15%;
         }
         .footer {
             text-align: center;
-            margin-top: 1rem; /* تقليل المسافة بين الفوتر والصورة */
+            margin-top: 1rem;
             color: #666;
             font-size: 0.875rem;
-            padding: 0; /* إزالة padding */
+            padding: 0;
         }
         .totals {
             display: flex;
             justify-content: space-between;
-            margin-top: 0; /* إزالة المسافة العلوية */
+            margin-top: 0;
             font-weight: bold;
         }
         #backgroundImage {
-            display: inline-block; /* Show the button */
-            margin-right: 1rem; /* Add spacing */
+            display: inline-block;
+            margin-right: 1rem;
         }
         .image-container {
-            text-align: center; /* Center the image */
-            margin-top: 0; /* إزالة المسافة بين المجموع والصورة */
+            text-align: center;
+            margin-top: 0;
         }
         .image-container img {
-            max-width: 100%; /* Ensure the image is responsive */
-            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;
+            height: auto;
         }
+        
+        /* تحسينات الطباعة */
         @media print {
+            /* إخفاء عناصر التحكم والأزرار */
             .controls {
                 display: none !important;
             }
-            .footer {
-                position: absolute; /* جعل الفوتر دائماً في الأسفل */
-                bottom: 0;
-                width: 100%;
-            }
-            th:nth-child(5), /* إخفاء عمود الإجراء */
+            
+            /* إخفاء أزرار الإجراءات والعمود الخاص بها */
+            th:nth-child(5),
             td:nth-child(5) {
                 display: none;
+            }
+            
+            /* تغيير حجم الورقة للمحتوى */
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* إزالة القياسات والظلال عند الطباعة */
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0.5cm;
+            }
+            
+            /* تثبيت الفوتر في الأسفل */
+            .footer {
+                position: fixed;
+                bottom: 0.5cm;
+                width: 100%;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+            
+            /* إخفاء هيدر وفوتر الموقع (الخارجيين) */
+            @page {
+                margin: 0.5cm;
+                size: A4;
+            }
+            
+            /* تغيير عنوان الصفحة ليكون "عرض السعر" فقط */
+            title {
+                display: none;
+            }
+            
+            /* التأكد من عدم قطع العناصر عند الطباعة */
+            .info-container, 
+            .table-container, 
+            .totals {
+                break-inside: avoid;
+            }
+            
+            /* إزالة الحقول من الجدول عند الطباعة */
+            input {
+                border: none;
+                padding: 0;
+                background: transparent;
+            }
+            
+            /* إخفاء أزرار إضافة العناصر */
+            #addItemBtn {
+                display: none;
+            }
+
+            /* إخفاء العناصر الخارجية المتعلقة بالموقع */
+            header, 
+            nav, 
+            footer, 
+            aside,
+            .site-header, 
+            .site-footer, 
+            .navigation, 
+            .sidebar {
+                display: none !important;
             }
         }
     </style>
@@ -231,23 +299,25 @@
         </div>
 
         <div class="image-container">
-            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;"> <!-- الصورة هنا -->
+            <img id="background" src="" alt="صورة تحت المجموع" style="display:none;">
         </div>
         
         <div class="footer">
-            <p>شكرًا لاختياركم خدمتنا في نقل وتخزين الأثاث. نحن ملتزمون بتقديم أفضل الخدمات
-.
- 
-.</p> لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبًا
+            <p>شكرًا لاختياركم خدمتنا في نقل وتخزين الأثاث. نحن ملتزمون بتقديم أفضل الخدمات. لأي استفسارات، يرجى الاتصال بنا على الرقم: 0592026994. نتطلع لخدمتكم قريبًا</p>
         </div>
     </div>
 
     <script>
         // Initialize current date
         document.addEventListener('DOMContentLoaded', function() {
-            const today = moment().locale('ar').format('YYYY-DD-MMM');
-            document.getElementById('offerDate').value = today; // تعيين التاريخ الحالي
+            const today = moment().locale('ar').format('YYYY-MM-DD');
+            document.getElementById('offerDate').value = today;
             renderItems();
+            
+            // إضافة عنصر افتراضي عند تحميل الصفحة
+            if (items.length === 0) {
+                addItem();
+            }
         });
 
         let items = [];
@@ -282,18 +352,27 @@
             document.getElementById('total').textContent = `${total.toFixed(2)} ريال سعودي`;
         }
 
-        // Add item button
-        document.getElementById('addItemBtn').addEventListener('click', function() {
-            const newId = items.length + 1;
+        // Add item function
+        function addItem() {
+            const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
             items.push({ id: newId, description: '', quantity: 1, price: 0 });
             renderItems();
+        }
+
+        // Add item button
+        document.getElementById('addItemBtn').addEventListener('click', function() {
+            addItem();
         });
 
         // Update item function
         function updateItem(id, field, value) {
             const item = items.find(i => i.id === id);
             if (item) {
-                item[field] = value;
+                if (field === 'quantity' || field === 'price') {
+                    item[field] = parseFloat(value) || 0;
+                } else {
+                    item[field] = value;
+                }
                 renderItems();
             }
         }
@@ -306,7 +385,34 @@
 
         // Print function
         document.getElementById('printBtn').addEventListener('click', function() {
+            // تعديل عنوان الصفحة قبل الطباعة
+            document.title = "عرض سعر";
+            
+            // إعادة تنسيق المدخلات للطباعة
+            const inputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
+            inputs.forEach(input => {
+                input.style.border = 'none';
+                input.style.backgroundColor = 'transparent';
+            });
+            
+            // إخفاء أزرار الإجراءات
+            const actionButtons = document.querySelectorAll('td:nth-child(5)');
+            actionButtons.forEach(td => {
+                td.style.display = 'none';
+            });
+            
             window.print();
+            
+            // إعادة التنسيق بعد الطباعة
+            inputs.forEach(input => {
+                input.style.border = '1px solid #d1d5db';
+                input.style.backgroundColor = '';
+            });
+            
+            // إعادة إظهار أزرار الإجراءات
+            actionButtons.forEach(td => {
+                td.style.display = '';
+            });
         });
 
         // Set background image function
@@ -317,7 +423,7 @@
                 reader.onload = function(e) {
                     const img = document.getElementById('background');
                     img.src = e.target.result;
-                    img.style.display = 'block'; // عرض الصورة
+                    img.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             }
