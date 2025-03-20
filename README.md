@@ -33,7 +33,7 @@
         .header h1 {
             color: #1d4ed8;
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
         .controls {
             display: flex;
